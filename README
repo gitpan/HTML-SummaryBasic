@@ -1,0 +1,117 @@
+HTML/SummaryBasic version 0.01
+==============================
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+NAME
+    HTML::SummaryBasic - basic summary info from meta tags and the first para.
+
+SYNOPSIS
+	use HTML::SummaryBasic;
+	my $p = new HTML::SummaryBasic  {
+			PATH => "D:/www/leegoddard_com/essays/aiCreativity.html",
+			NOT_AVAILABLE =>"There ain't none",
+	};
+	# What did we get?
+	foreach (keys %{$p->{SUMMARY}}){
+			warn "$_ ... $p->{SUMMARY}->{$_}\n";
+	}
+
+DEPENDENCIES
+	use HTML::TokeParser;
+	use HTML::HeadParser;
+
+DESCRIPTION
+    Creates a hash of useful summary information from "meta" and "body"
+    elements.
+
+GLOBAL VARIABLES
+    $NOT_AVAILABLE
+    May be over-ridden by supplying the constructor with a field of the same
+    name. See the THE SUMMARY STRUCTURE entry elsewhere in this document.
+
+CONSTRUCTOR (new)
+    Accepts a hash-like structure...
+
+    PATH
+        Path to file to process.
+
+    SUMMARY
+        Filled after "get_summary" is called (see the METHOD get_summary
+        entry elsewhere in this document and the THE SUMMARY STRUCTURE entry
+        elsewhere in this document).
+
+    FIELDS
+        An array of "meta" tag "name"s whose "content" value should be
+        placed into the respective slots of the "SUMMARY" field after
+        "get_summary" has been called.
+
+  THE SUMMARY STRUCTURE
+
+    A field of the object which is a hash, with key/values as follows:
+
+    AUTHOR, TITLE
+        HTML "meta" tag of same names.
+
+    DESCRIPTION
+        Content of the "meta" tag of the same name.
+
+    LAST_MODIFIED_META, LAST_MODIFIED_FILE
+        Time since of the modification of the file, respectively according
+        to any "meta" tag of the same name, and according to the file
+        system. If the former does not exist, it takes the value of the
+        latter.
+
+    CREATED_META, CREATED_FILE
+        As above, but relating to the creation date of the file.
+
+    FIRST_PARA
+        The first HTML "p" element of the document.
+
+    HEADLINE
+        The first "h1" tag; failing that, the first "h2"; failing that, the
+        value of "$NOT_AVAILABLE".
+
+    PLUS...
+        Any meta-fields specified in the "FIELDS" field.
+
+METHOD get_summary
+    Optionally takes an argument that over-rides and re-sets the "PATH"
+    field. Otherwise uses the "PATH" field to get a summary and put it into
+    the hash that is the "SUMMARY" field. See also the THE SUMMARY STRUCTURE
+    entry elsewhere in this document.
+
+    Return "1" on success, "undef" on failure, setting "$!" with an error
+    message.
+
+METHOD load_file
+    Optionally takes an argument that over-rides and re-sets the "PATH"
+    field. Otherwise uses the "PATH" field to load an HTML file and return a
+    reference to a scalar full of it.
+
+    Return a reference to a scalar of HTML, or "undef" on failure, setting
+    "$!" with an error message.
+
+TODO
+    Maybe work on URI as well as file paths.
+
+SEE ALSO
+    the HTML::TokeParser manpage, the HTML::HeadParser manpage.
+
+AUTHOR
+    Lee Goddard (LGoddard@CPAN.org)
+
+COPYRIGHT
+    Copyright 2000-2001 Lee Goddard.
+
+    This library is free software; you may use and redistribute it or modify
+    it undef the same terms as Perl itself.
+
+

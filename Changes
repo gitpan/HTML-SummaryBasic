@@ -1,0 +1,6 @@
+Revision history for Perl extension HTML::SummaryBasic.
+
+0.01  Mon Sep  2 16:17:33 2002
+	- original version; created by h2xs 1.21 with options
+		-Xn HTML::SummaryBasic
+
