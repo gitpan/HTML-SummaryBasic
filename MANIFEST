@@ -2,5 +2,8 @@ Changes
 Makefile.PL
 MANIFEST
 README
-SummaryBasic.pm
-test.pl
+lib/HTML/SummaryBasic.pm
+t/test.t
+t/blank.html
+t/full.html
+META.yml                                 Module meta-data (added by MakeMaker)
